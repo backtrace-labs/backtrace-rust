@@ -1,4 +1,3 @@
-extern crate error_chain;
 extern crate reqwest;
 extern crate rustc_version_runtime;
 extern crate serde_json;
@@ -15,7 +14,7 @@ pub fn submit<T>(st: &SubmissionTarget, _p: &PanicInfo, user_handler: &T)
 where
     T: Fn(&mut Report, &PanicInfo) -> () + Send + Sync + 'static,
 {
-    let bt = error_chain::Backtrace::new();
+    let bt = backtrace::Backtrace::new();
 
     let version = rustc_version_runtime::version();
     let version = format!("{}.{}", version.major, version.minor);
@@ -86,7 +85,7 @@ where
 
     let url = format!("{}/api/post?format=json&token={}", st.url, st.token);
 
-    let client = reqwest::Client::new();
+    let client = reqwest::blocking::Client::new();
 
     let resp = client.post(&url).json(&payload).send();
 
