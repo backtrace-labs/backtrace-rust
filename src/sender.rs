@@ -7,8 +7,8 @@ use std::collections::HashMap;
 use std::panic::PanicInfo;
 use std::time;
 
-use Report;
-use SubmissionTarget;
+use crate::Report;
+use crate::SubmissionTarget;
 
 pub fn submit<T>(st: &SubmissionTarget, _p: &PanicInfo, user_handler: &T)
 where

@@ -1,10 +1,10 @@
 [package]
-name = "backtrace-rust"
+name = "backtrace_rust"
+description = "Backtrace error reporting for Rust applications"
 version = "0.2.0"
 authors = ["KrzaQ <krzaq@krzaq.cc>"]
-
-[lib]
-name = "backtrace_rust"
+readme = "README.md"
+edition = "2018"
 
 [dependencies]
 backtrace = "0.3"
