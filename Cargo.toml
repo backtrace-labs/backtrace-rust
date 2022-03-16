@@ -2,7 +2,7 @@
 name = "backtraceio"
 description = "Backtrace I/O error reporting for Rust applications"
 version = "0.2.0"
-authors = ["KrzaQ <krzaq@krzaq.cc>"]
+authors = ["KrzaQ <krzaq@krzaq.cc>", "Will Andrews <will@firepipe.net>"]
 readme = "README.md"
 edition = "2018"
 
