@@ -22,7 +22,7 @@ fn main() {
         }
     }
 
-    backtrace_rust::register_error_handler(url, token, move |r: &mut backtrace_rust::Report, _| {
+    backtraceio::register_error_handler(url, token, move |r: &mut backtraceio::Report, _| {
         for (key, value) in &attributes {
             r.attributes.insert(key.to_string(), value.to_string());
         }

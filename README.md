@@ -3,23 +3,19 @@
 # Installation
 ```
 [dependencies]
-backtrace-rust = "0.1"
+backtraceio = "0.1"
 ```
 
 # Usage
 
-```rust
-extern crate backtrace_rust;
-```
-
 ## Global error handler
 
 Pass your custom token and upload url from your Backtrace account and a report
-modification closure/function to the `backtrace_rust::register_error_handler`
+modification closure/function to the `backtraceio::register_error_handler`
 function.
 
 ```
-backtrace_rust::register_error_handler(
+backtraceio::register_error_handler(
     "https://UNIVERSE.sp.backtrace.io:6098",
     "YOURTOKEN",
     closure
@@ -28,22 +24,18 @@ backtrace_rust::register_error_handler(
 ```
 
 ### `Report` modification function
-The error handler will pass the `Report` and `PanicInfo` objects back to the
-user, in case there are additional attributes/annotations to be defined
-(described more in detail [here][1]). It should accept `&mut Report`,
-`&PanicInfo` and return a modified `Report`.
+The error handler will pass the `Report` and `std::panic::PanicInfo` objects
+back to the user, in case there are additional attributes/annotations to be
+defined (described more in detail [here][1]). It should accept `&mut Report`,
+`&PanicInfo`, making any changes desired to the report.
 
 # Example
 
 ```rust
-extern crate backtrace_rust;
-extern crate num_cpus;
-
-use backtrace_rust::Report;
-use std::panic::PanicInfo;
+use backtraceio::Report;
 
 fn main() {
-    backtrace_rust::register_error_handler(
+    backtraceio::register_error_handler(
         "https://UNIVERSE.sp.backtrace.io:6098",
         "YOUR_TOKEN",
         |r: &mut Report, _| {
