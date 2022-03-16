@@ -3,6 +3,9 @@ name = "backtraceio"
 description = "Backtrace I/O error reporting for Rust applications"
 version = "0.2.0"
 authors = ["KrzaQ <krzaq@krzaq.cc>", "Will Andrews <will@firepipe.net>"]
+homepage = "https://backtrace.io/"
+repository = "https://github.com/backtrace-labs/backtrace-rust/"
+license = "MIT OR Apache-2.0"
 readme = "README.md"
 edition = "2018"
 
