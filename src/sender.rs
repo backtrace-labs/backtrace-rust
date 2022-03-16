@@ -19,7 +19,9 @@ where
     let version = rustc_version_runtime::version();
     let version = format!("{}.{}", version.major, version.minor);
 
-    println!("{:?}", version);
+    if std::env::var("DEBUG_BACKTRACEIO").is_ok() {
+        println!("{:?}", version);
+    }
 
     let mut r = Report {
         ..Default::default()
@@ -81,7 +83,9 @@ where
         }
     });
 
-    println!("{}", payload.to_string());
+    if std::env::var("DEBUG_BACKTRACEIO").is_ok() {
+        println!("Payload: {}", payload.to_string());
+    }
 
     let url = format!("{}/api/post?format=json&token={}", st.url, st.token);
 
@@ -89,9 +93,8 @@ where
 
     let resp = client.post(&url).json(&payload).send();
 
-    match resp {
-        Ok(x) => println!("{:?}", x),
-        Err(error) => println!("{:?}", error),
+    if std::env::var("DEBUG_BACKTRACEIO").is_ok() {
+        println!("Response: {:?}", resp);
     }
 }
 
