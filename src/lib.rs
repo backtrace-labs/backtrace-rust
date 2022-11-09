@@ -1,10 +1,14 @@
 #[macro_use]
 extern crate serde_json;
 
+mod error;
 mod sender;
 
 use std::collections::HashMap;
 use std::panic::PanicInfo;
+
+pub use error::init;
+pub use error::ResultExt;
 
 #[derive(Debug, Clone)]
 pub struct SubmissionTarget {
@@ -28,6 +32,14 @@ where
     };
 
     std::panic::set_hook(Box::new(move |panic_info| {
-        sender::submit(&submission_target, panic_info, &user_handler);
+        let mut r = Report {
+            ..Default::default()
+        };
+
+        user_handler(&mut r, panic_info);
+
+        let bt = backtrace::Backtrace::new();
+
+        sender::submit(&submission_target, &mut r, bt);
     }));
 }
