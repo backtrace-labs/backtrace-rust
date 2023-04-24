@@ -7,6 +7,8 @@ use std::collections::HashMap;
 use std::panic::PanicInfo;
 use std::time;
 
+use gethostname::gethostname;
+
 use crate::Report;
 use crate::SubmissionTarget;
 
@@ -61,6 +63,17 @@ where
             elem.insert(String::from("address"), addr);
             elem.insert(String::from("funcName"), name);
             stack.push(elem);
+        }
+    }
+
+    // We should only add a hostname attribute only if it does not
+    // already exist in a reports attributes.
+    //
+    // If we fail to access the hostname of the system reporting this crash
+    // it's fine to not attempt adding it to the report and leaving it null.
+    if !r.attributes.contains_key("hostname") {
+        if let Ok(hostname) = gethostname().into_string() {
+            r.attributes.insert(String::from("hostname"), hostname);
         }
     }
 
